@@ -25,13 +25,16 @@ public class BlogPostService {
     @Autowired
     private BlogAuthorDAO baDAO;
 
+    @Autowired
+    private BlogAuthorService blogAuthorService;
+
     public Page<BlogPost> getAll(int page, int size, String sortBy) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
 
         return this.bpDAO.findAll(pageable);
     }
 
-    private Set<BlogAuthor> fetchAuthors(int numOfAuthors) {
+    private Set<BlogAuthor> fetchAuthorsRdm(int numOfAuthors) {
         Set<BlogAuthor> authors = new HashSet<>();
         List<BlogAuthor> authorList = baDAO.findAll();
 
@@ -53,6 +56,25 @@ public class BlogPostService {
         return authors;
     }
 
+    private Set<BlogAuthor> fetchAuthorsSelected(BlogPostPayLoad payload) {
+        Set<BlogAuthor> authors = new HashSet<>();
+
+        Set<Long> authorIds = payload.getAuthorIds();
+
+        for (Long authorId : authorIds) {
+            BlogAuthor author = blogAuthorService.findById(authorId);
+            if (author != null) {
+                authors.add(author);
+            } else {
+                throw new NotFoundException(authorId);
+            }
+        }
+
+        return authors;
+
+    }
+
+
     public BlogPost save(BlogPostPayLoad payload) {
         Random rdm = new Random();
         Category[] categories = Category.values();
@@ -62,10 +84,15 @@ public class BlogPostService {
         newBlogPost.setCover(payload.getCover());
         newBlogPost.setContent(payload.getContent());
         newBlogPost.setReadingTime(payload.getReadingTime());
-        
-        Set<BlogAuthor> authors = fetchAuthors(rdm.nextInt(1, 4));
-        newBlogPost.setAuthors(authors);
 
+        Set<BlogAuthor> authors;
+        if (payload.getAuthorIds() == null) {
+            authors = fetchAuthorsRdm(rdm.nextInt(1, 4));
+        } else {
+            authors = fetchAuthorsSelected(payload);
+        }
+
+        newBlogPost.setAuthors(authors);
         return this.bpDAO.save(newBlogPost);
     }
 
