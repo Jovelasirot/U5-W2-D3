@@ -1,6 +1,7 @@
 package jovelAsirot.U5W2D3.controllers;
 
 import jovelAsirot.U5W2D3.entities.BlogPost;
+import jovelAsirot.U5W2D3.entities.BlogPostPayLoad;
 import jovelAsirot.U5W2D3.services.BlogPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,8 +17,8 @@ public class BlogPostController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BlogPost saveBlog(@RequestBody BlogPost blogBody) {
-        return this.blogPostService.save(blogBody);
+    public BlogPost saveBlog(@RequestBody BlogPostPayLoad payload) {
+        return this.blogPostService.save(payload);
     }
 
     @GetMapping

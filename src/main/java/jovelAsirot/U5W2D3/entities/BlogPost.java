@@ -28,6 +28,11 @@ public class BlogPost {
 
     private int readingTime;
 
-    @ManyToMany(mappedBy = "blogPosts")
+    @ManyToMany
+    @JoinTable(
+            name = "blog_post_author",
+            joinColumns = @JoinColumn(name = "post_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id")
+    )
     private Set<BlogAuthor> authors = new HashSet<>();
 }
