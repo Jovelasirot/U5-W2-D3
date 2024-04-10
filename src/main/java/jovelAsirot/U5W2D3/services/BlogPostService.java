@@ -39,7 +39,6 @@ public class BlogPostService {
 
         List<BlogAuthor> randomAuthors = authorList.subList(0, Math.min(numOfAuthors, authorList.size()));
 
-
         for (BlogAuthor author : randomAuthors) {
             BlogAuthor blogAuthor = new BlogAuthor();
             blogAuthor.setId(author.getId());
@@ -63,8 +62,8 @@ public class BlogPostService {
         newBlogPost.setCover(payload.getCover());
         newBlogPost.setContent(payload.getContent());
         newBlogPost.setReadingTime(payload.getReadingTime());
-
-        Set<BlogAuthor> authors = fetchAuthors(3);
+        
+        Set<BlogAuthor> authors = fetchAuthors(rdm.nextInt(1, 4));
         newBlogPost.setAuthors(authors);
 
         return this.bpDAO.save(newBlogPost);

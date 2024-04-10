@@ -1,11 +1,12 @@
 package jovelAsirot.U5W2D3.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -29,6 +30,4 @@ public class BlogAuthor {
 
     private String avatar;
 
-    @ManyToMany
-    private Set<BlogPost> blogPosts = new HashSet<>();
 }
