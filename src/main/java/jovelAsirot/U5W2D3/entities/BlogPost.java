@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import jovelAsirot.U5W2D3.enums.Category;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -19,6 +19,7 @@ public class BlogPost {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Enumerated(EnumType.STRING)
     private Category category;
 
     private String cover;
@@ -28,5 +29,5 @@ public class BlogPost {
     private int readingTime;
 
     @ManyToMany(mappedBy = "blogPosts")
-    private List<BlogAuthor> authors = new ArrayList<>();
+    private Set<BlogAuthor> authors = new HashSet<>();
 }

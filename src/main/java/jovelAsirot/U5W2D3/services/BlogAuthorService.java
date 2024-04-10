@@ -27,7 +27,7 @@ public class BlogAuthorService {
     public BlogAuthor save(BlogAuthor newAuthor) {
         Random rdm = new Random();
         LocalDate today = LocalDate.now();
-        
+
         newAuthor.setAvatar("https://ui-avatars.com/api/?name=" + newAuthor.getName() + "+" + newAuthor.getSurname());
         newAuthor.setEmail(newAuthor.getName() + newAuthor.getSurname() + "gmail.com");
         newAuthor.setBirthDate(today.minusYears(rdm.nextInt(11, 20)));

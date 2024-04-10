@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -14,7 +14,7 @@ import java.util.List;
 @ToString
 @Entity
 public class BlogAuthor {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -30,5 +30,5 @@ public class BlogAuthor {
     private String avatar;
 
     @ManyToMany
-    private List<BlogPost> blogPosts = new ArrayList<>();
+    private Set<BlogPost> blogPosts = new HashSet<>();
 }

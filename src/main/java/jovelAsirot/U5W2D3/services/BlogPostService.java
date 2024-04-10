@@ -1,6 +1,7 @@
 package jovelAsirot.U5W2D3.services;
 
 import jovelAsirot.U5W2D3.entities.BlogPost;
+import jovelAsirot.U5W2D3.enums.Category;
 import jovelAsirot.U5W2D3.exceptions.NotFoundException;
 import jovelAsirot.U5W2D3.repositories.BlogPostDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.Random;
 
 @Service
 public class BlogPostService {
@@ -22,6 +25,10 @@ public class BlogPostService {
     }
 
     public BlogPost save(BlogPost newBlogPost) {
+        Random rdm = new Random();
+        Category[] categories = Category.values();
+
+        newBlogPost.setCategory(categories[rdm.nextInt(categories.length)]);
         return this.bpDAO.save(newBlogPost);
     }
 
