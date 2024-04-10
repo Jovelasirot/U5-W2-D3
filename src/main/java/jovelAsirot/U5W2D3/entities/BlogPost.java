@@ -30,7 +30,7 @@ public class BlogPost {
 
     @ManyToMany
     @JoinTable(
-            name = "blog_post_author",
+            name = "blog_post_authors",
             joinColumns = @JoinColumn(name = "post_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id")
     )
